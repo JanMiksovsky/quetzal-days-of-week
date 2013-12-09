@@ -1,0 +1,13 @@
+{
+  "name": "globalize-culture",
+  "description": "Component for selecting and managing a Globalize culture",
+  "version": "0.0.1",
+  "private": true,
+  "license": "MIT",
+  "dependencies": {
+    "polymer": "Polymer/polymer#master"
+  },
+  "ignore": [
+    "**/.*"
+  ]
+}
