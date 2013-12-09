@@ -2,6 +2,7 @@
 Shows the names of the days of the week, e.g., for use as a calendar header.
 -->
 
+<link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../quetzal-element/quetzal-element.html">
 
 <polymer-element name="quetzal-days-of-week" extends="quetzal-element" attributes="culture format">
@@ -34,43 +35,6 @@ Shows the names of the days of the week, e.g., for use as a calendar header.
 </template>
 
 <script>
-Polymer( "quetzal-days-of-week", {
-
-  applyAuthorStyles: true,
-
-  cultureChanged: function() {
-    this._refresh();
-  },
-
-  format: "namesAbbr",
-
-  formatChanged: function() {
-    this._refresh();
-  },
-
-  ready: function() {
-    this.super();
-    this._refresh();
-  },
-
-  _refresh: function() {
-    var culture = this.culture;
-    var dayNameEnum = culture ? culture.calendar.days : QuetzalDaysOfWeek.days;
-    var dayNames = dayNameEnum[ this.format ];
-    var firstDayOfWeek = culture ? culture.calendar.firstDay : 0;
-    var daysOfWeek = this.shadowRoot.querySelectorAll( ".dayOfWeek" ).array();
-    daysOfWeek.forEach( function( day, i ) {
-      var dayOfWeek = ( firstDayOfWeek + i ) % 7;
-      var weekend = ( dayOfWeek === 0 || dayOfWeek === 6 );
-      var dayName = dayNames[ dayOfWeek ];
-      day.textContent = dayName;
-      day.classList.toggle( "weekend", weekend );
-      day.classList.toggle( "weekday", !weekend );
-    });
-  }
-
-});
-
 // Static members
 // TODO: Once Polymer supports constructor access here, use that instead.
 QuetzalDaysOfWeek = {
@@ -107,6 +71,43 @@ QuetzalDaysOfWeek = {
   }
 
 };
+
+Polymer( "quetzal-days-of-week", {
+
+  applyAuthorStyles: true,
+
+  cultureChanged: function() {
+    this._refresh();
+  },
+
+  format: "namesAbbr",
+
+  formatChanged: function() {
+    this._refresh();
+  },
+
+  ready: function() {
+    this.super();
+    this._refresh();
+  },
+
+  _refresh: function() {
+    var culture = this.culture;
+    var dayNameEnum = culture ? culture.calendar.days : QuetzalDaysOfWeek.days;
+    var dayNames = dayNameEnum[ this.format ];
+    var firstDayOfWeek = culture ? culture.calendar.firstDay : 0;
+    var daysOfWeek = this.shadowRoot.querySelectorAll( ".dayOfWeek" ).array();
+    daysOfWeek.forEach( function( day, i ) {
+      var dayOfWeek = ( firstDayOfWeek + i ) % 7;
+      var weekend = ( dayOfWeek === 0 || dayOfWeek === 6 );
+      var dayName = dayNames[ dayOfWeek ];
+      day.textContent = dayName;
+      day.classList.toggle( "weekend", weekend );
+      day.classList.toggle( "weekday", !weekend );
+    });
+  }
+
+});
 </script>
 
 </polymer-element>
